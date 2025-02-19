@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Hardware Warehouse</string>
+    <string name="common_text">Common:</string>
+    <string name="store_text">Store:</string>
+    <string name="outside_text">Outside:</string>
+    <string name="plus_button_text" translatable="false">+</string>
+    <string name="minus_button_text" translatable="false">-</string>
+    <string name="give_text">Give</string>
+    <string name="return_text">Return</string>
+    <string name="hardware_splash_text">HARDWARE</string>
+    <string name="warehouse_splash_text">WAREHOUSE</string>
+    <string name="add_to_store_description">Add to store</string>
+    <string name="undo_description">Undo</string>
 </resources>

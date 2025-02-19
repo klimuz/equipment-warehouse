@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Склад Оборудования</string>
+    <string name="common_text">Всего:</string>
+    <string name="store_text">Склад:</string>
+    <string name="outside_text">Выезда:</string>
+    <string name="give_text">Отдать</string>
+    <string name="return_text">Вернуть</string>
+    <string name="hardware_splash_text">СКЛАД</string>
+    <string name="warehouse_splash_text">ОБОРУДОВАНИЯ</string>
+</resources>

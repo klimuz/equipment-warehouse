@@ -1,127 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border"
-    android:layout_margin="8dp"
-    android:padding="4dp" >
+    android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/textViewItemName"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="8dp"
-        android:background="@drawable/border"
-        android:text="name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/border_gray"
+        android:padding="4dp">
 
-    <TextView
-        android:id="@+id/textViewCommonText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Common:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewItemName" />
+        <TextView
+            android:id="@+id/textViewItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/border"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewCommonNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="123"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewCommonText"
-        app:layout_constraintStart_toEndOf="@+id/textViewCommonText"
-        app:layout_constraintTop_toTopOf="@+id/textViewCommonText" />
+        <TextView
+            android:id="@+id/textViewCommonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/common_text"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewItemName" />
 
-    <TextView
-        android:id="@+id/textViewStoreText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Store:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCommonText" />
+        <TextView
+            android:id="@+id/textViewCommonNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewCommonText"
+            app:layout_constraintStart_toEndOf="@+id/textViewCommonText"
+            app:layout_constraintTop_toTopOf="@+id/textViewCommonText"
+            android:paddingStart="8dp"
+            tools:ignore="RtlSymmetry" />
 
-    <TextView
-        android:id="@+id/textViewStoreNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="123"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewStoreText"
-        app:layout_constraintEnd_toEndOf="@+id/textViewCommonNumber"
-        app:layout_constraintStart_toStartOf="@+id/textViewCommonNumber"
-        app:layout_constraintTop_toTopOf="@+id/textViewStoreText" />
+        <TextView
+            android:id="@+id/textViewStoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/store_text"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCommonText" />
 
-    <TextView
-        android:id="@+id/textViewOutsideText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Outside:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStoreText" />
+        <TextView
+            android:id="@+id/textViewStoreNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewStoreText"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCommonNumber"
+            app:layout_constraintStart_toStartOf="@+id/textViewCommonNumber"
+            app:layout_constraintTop_toTopOf="@+id/textViewStoreText"
+            android:paddingStart="8dp"
+            tools:ignore="RtlSymmetry"/>
 
-    <TextView
-        android:id="@+id/textViewOutsideNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="123"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewOutsideText"
-        app:layout_constraintEnd_toEndOf="@+id/textViewStoreNumber"
-        app:layout_constraintStart_toStartOf="@+id/textViewStoreNumber"
-        app:layout_constraintTop_toTopOf="@+id/textViewOutsideText" />
+        <TextView
+            android:id="@+id/textViewOutsideText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/outside_text"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewStoreText" />
 
-    <Button
-        android:id="@+id/buttonReturn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="+"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewItemName" />
+        <TextView
+            android:id="@+id/textViewOutsideNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewOutsideText"
+            app:layout_constraintEnd_toEndOf="@+id/textViewStoreNumber"
+            app:layout_constraintStart_toStartOf="@+id/textViewStoreNumber"
+            app:layout_constraintTop_toTopOf="@+id/textViewOutsideText"
+            android:paddingStart="8dp"
+            tools:ignore="RtlSymmetry"/>
 
-    <Button
-        android:id="@+id/buttonGive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="-"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonReturn"
-        app:layout_constraintEnd_toStartOf="@+id/buttonReturn"
-        app:layout_constraintTop_toTopOf="@+id/buttonReturn" />
+        <TextView
+            android:id="@+id/textViewGiveText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/give_text"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/textViewReturnText" />
 
-    <TextView
-        android:id="@+id/textViewGiveText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Give"
-        app:layout_constraintEnd_toEndOf="@+id/buttonGive"
-        app:layout_constraintStart_toStartOf="@+id/buttonGive"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGive" />
+        <TextView
+            android:id="@+id/textViewReturnText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/return_text"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <TextView
-        android:id="@+id/textViewReturnText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Return"
-        app:layout_constraintEnd_toEndOf="@+id/buttonReturn"
-        app:layout_constraintStart_toStartOf="@+id/buttonReturn"
-        app:layout_constraintTop_toBottomOf="@+id/buttonReturn" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="27dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewItemName"
+            app:srcCompat="@drawable/arrow_right" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="43dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            app:srcCompat="@drawable/arrow_jeft" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

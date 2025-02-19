@@ -1,6 +1,7 @@
 package com.klimuz.hardwarewarehouse;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 0, 0, 0, 0));
         items.add(new Item("cableXLR", 100, "", "", "", "",
                 "", "", "", "", "", "",
-                0, 0, 0, 0, 0, 0,
+                60, 0, 0, 0, 0, 0,
                 0, 0, 0, 0));
         items.add(new Item("console CL5", 2, "Yulduz DDN", "", "", "",
                 "", "", "", "", "", "",
@@ -37,5 +38,11 @@ public class MainActivity extends AppCompatActivity {
         ItemsAdapter adapter = new ItemsAdapter(items);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewItems.setAdapter(adapter);
+    }
+
+    public void buttonAddPressed(View view) {
+    }
+
+    public void buttonUndoPressed(View view) {
     }
 }
