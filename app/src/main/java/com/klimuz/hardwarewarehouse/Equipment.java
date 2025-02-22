@@ -57,4 +57,17 @@ public class Equipment {
     public void updateJobsInfo(int jobIndex, int equipmentQuantity) {
         jobsInfo.set(jobIndex, equipmentQuantity);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Equipment equipment = (Equipment) obj;
+        return name.equals(equipment.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

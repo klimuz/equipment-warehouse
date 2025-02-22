@@ -13,4 +13,6 @@
     <string name="undo_description">Undo</string>
     <string name="quantity_label">Quantity:</string>
     <string name="name_hint">Name</string>
+    <string name="fill_all_fields">Fill all fields</string>
+    <string name="list_already_contains_overwrite">List already contains %s, overwrite?</string>
 </resources>
