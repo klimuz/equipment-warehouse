@@ -11,4 +11,6 @@
     <string name="warehouse_splash_text">WAREHOUSE</string>
     <string name="add_to_store_description">Add to store</string>
     <string name="undo_description">Undo</string>
+    <string name="quantity_label">Quantity:</string>
+    <string name="name_hint">Name</string>
 </resources>
