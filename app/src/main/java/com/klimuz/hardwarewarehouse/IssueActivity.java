@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class IssueActivity extends AppCompatActivity {
     private TextView textViewIssueName;
     private Spinner spinnerIssue;
@@ -69,15 +67,14 @@ public class IssueActivity extends AppCompatActivity {
         });
     }
 
-    public void ButtonAddJobPressed(View view) {
+    public void buttonAddJobPressed(View view) {
         Intent intent = new Intent(this, AddJobActivity.class);
         intent.putExtra("position", position);
         startActivity(intent);
     }
 
     public void buttonIssueCancelPressed(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        goToMain();
     }
 
     public void buttonIssueOkPressed(View view) {
@@ -86,8 +83,7 @@ public class IssueActivity extends AppCompatActivity {
             if (!issueQuantityString.isEmpty()) {
                 int issueQuantityInt = Integer.parseInt(issueQuantityString);
                 Globals.items.get(position).updateJobsInfo(selectedJobIndex, issueQuantityInt);
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                goToMain();
             } else {
                 String fillQuantity = getString(R.string.fill_quantity);
                 Toast.makeText(this, fillQuantity, Toast.LENGTH_LONG).show();
@@ -96,5 +92,10 @@ public class IssueActivity extends AppCompatActivity {
             String addJobFirst = getString(R.string.add_job_first);
             Toast.makeText(this, addJobFirst, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void goToMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

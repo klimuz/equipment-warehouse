@@ -27,8 +27,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void buttonCancelAddPressed(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        goToMain();
     }
 
     public void buttonOkAddPressed(View view) {
@@ -39,21 +38,20 @@ public class AddItemActivity extends AppCompatActivity {
             Equipment equipment = new Equipment(title, digit);
             if (!Globals.items.contains(equipment)) {
                 Globals.items.add(equipment);
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                goToMain();
             } else {
+                String alertAlreadyContains = String.format(getString(R.string.list_already_contains_overwrite), title);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                String alertAlreadyContains = getString(R.string.list_already_contains_overwrite);
-                builder.setMessage(String.format(alertAlreadyContains, title))
-                        .setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setMessage(alertAlreadyContains)
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 int index = getIndexByName(Globals.items, title);
                                 Globals.items.set(index, equipment);
-                                Intent intent = new Intent(AddItemActivity.this, MainActivity.class);
-                                startActivity(intent);
+                                goToMain();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
@@ -61,7 +59,6 @@ public class AddItemActivity extends AppCompatActivity {
 
                 AlertDialog alert = builder.create();
                 alert.show();
-
             }
         } else {
             String fill = getString(R.string.fill_all_fields);
@@ -76,5 +73,10 @@ public class AddItemActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    private void goToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

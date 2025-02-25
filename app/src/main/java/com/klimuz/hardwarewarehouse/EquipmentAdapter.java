@@ -19,8 +19,9 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
         this.equipmentList = equipmentList;
     }
 
-    interface OnEquipmentClickListener{
+    interface OnEquipmentClickListener {
         void onEquipmentClick(int position);
+
         void onLongClick(int position);
     }
 
@@ -44,8 +45,6 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
         holder.textViewInStock.setText(String.format("%s", equipment.getInStock()));
         holder.textViewInUse.setText(String.format("%s", equipment.getInUse()));
 
-
-
     }
 
     @Override
@@ -65,7 +64,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onEquipmentClickListener != null){
+                    if (onEquipmentClickListener != null) {
                         onEquipmentClickListener.onEquipmentClick(getAdapterPosition());
                     }
                 }
@@ -73,7 +72,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (onEquipmentClickListener != null){
+                    if (onEquipmentClickListener != null) {
                         onEquipmentClickListener.onLongClick(getAdapterPosition());
                     }
                     return true;

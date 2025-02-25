@@ -26,4 +26,7 @@
     <string name="return_text_label">Return:</string>
     <string name="remove">Remove</string>
     <string name="nothing_to_return">Nothing to return!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="are_you_sure">Are You sure?</string>
 </resources>

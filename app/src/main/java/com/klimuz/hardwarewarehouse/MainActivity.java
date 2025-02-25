@@ -2,7 +2,6 @@ package com.klimuz.hardwarewarehouse;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,14 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
-
-        if (Globals.items.isEmpty()) {
-            Globals.items.add(new Equipment("пульт", 10));
-            Globals.items.add(new Equipment("микрофон", 100));
-            Globals.items.add(new Equipment("кабель", 300));
-            Globals.items.add(new Equipment("стойка", 100));
-            Globals.items.add(new Equipment("дибокс", 150));
-        }
 
         EquipmentAdapter adapter = new EquipmentAdapter(Globals.items);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
