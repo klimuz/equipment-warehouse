@@ -15,4 +15,15 @@
     <string name="name_hint">Name</string>
     <string name="fill_all_fields">Fill all fields</string>
     <string name="list_already_contains_overwrite">List already contains %s, overwrite?</string>
+    <string name="add_job_button_text">+Job</string>
+    <string name="in_store_label">In store:</string>
+    <string name="fill_quantity">Fill quantity!</string>
+    <string name="add_job_first">Add job first!</string>
+    <string name="job_name_hint">Job name</string>
+    <string name="fill_job_name">Fill job name!</string>
+    <string name="quantity_hint">Quantity</string>
+    <string name="button_text_all">All</string>
+    <string name="return_text_label">Return:</string>
+    <string name="remove">Remove</string>
+    <string name="nothing_to_return">Nothing to return!</string>
 </resources>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Equipment {
     private String name;
     private int totalQuantity;
+    private int inStock = 0;
     private ArrayList<Integer> jobsInfo = new ArrayList<>();
 
     public Equipment(String name, int totalQuantity) {
@@ -29,7 +30,17 @@ public class Equipment {
     }
 
     public int getInStock() {
-        return totalQuantity - getInUse();
+        inStock = totalQuantity - getInUse();
+        return inStock;
+    }
+
+    public void returnToStock(int jobIndex, int quantity){
+        int inThisJob = getJobsInfo(jobIndex);
+        if (quantity <= inThisJob){
+            inThisJob -= quantity;
+            jobsInfo.set(jobIndex, inThisJob);
+            inStock += quantity;
+        }
     }
 
     public int getInUse() {
@@ -54,8 +65,20 @@ public class Equipment {
         return equipmentQuantity;
     }
 
+    public ArrayList<Integer> getJobsList(){
+        return jobsInfo;
+    }
+
+    public void setJobsList(ArrayList<Integer> newJobsInfo){
+        jobsInfo = newJobsInfo;
+    }
+
     public void updateJobsInfo(int jobIndex, int equipmentQuantity) {
         jobsInfo.set(jobIndex, equipmentQuantity);
+    }
+
+    public void removeJob(int index){
+        jobsInfo.remove(index);
     }
 
     @Override

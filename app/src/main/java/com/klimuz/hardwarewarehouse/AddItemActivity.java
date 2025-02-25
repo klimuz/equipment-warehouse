@@ -11,12 +11,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class AddItemActivity extends AppCompatActivity {
 
     private EditText editTextAddTitle;
-    private EditText editTextNumberQuantity;
+    private EditText editTextAddQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,7 @@ public class AddItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_item);
 
         editTextAddTitle = findViewById(R.id.editTextAddTitle);
-        editTextNumberQuantity = findViewById(R.id.editTextNumberQuantity);
+        editTextAddQuantity = findViewById(R.id.editTextAddQuantity);
     }
 
     public void buttonCancelAddPressed(View view) {
@@ -33,8 +32,8 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void buttonOkAddPressed(View view) {
-        String title = editTextAddTitle.getText().toString();
-        String quantity = editTextNumberQuantity.getText().toString();
+        String title = editTextAddTitle.getText().toString().trim();
+        String quantity = editTextAddQuantity.getText().toString().trim();
         if (!title.isEmpty() && !quantity.isEmpty()) {
             int digit = Integer.parseInt(quantity);
             Equipment equipment = new Equipment(title, digit);

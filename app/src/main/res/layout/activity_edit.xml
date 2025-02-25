@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
-    tools:context=".AddItemActivity">
+    tools:context=".EditActivity">
 
     <EditText
-        android:id="@+id/editTextAddTitle"
+        android:id="@+id/editTextEditTitle"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -24,12 +24,13 @@
         android:textColorHint="#78909C"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
     <TextView
-        android:id="@+id/textViewQuantityAddLabel"
+        android:id="@+id/textViewQuantityEditLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -39,10 +40,10 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditTitle" />
 
     <EditText
-        android:id="@+id/editTextAddQuantity"
+        android:id="@+id/editTextEditQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -52,32 +53,44 @@
         android:inputType="number"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewQuantityAddLabel"
-        app:layout_constraintStart_toEndOf="@+id/textViewQuantityAddLabel"
-        app:layout_constraintTop_toTopOf="@+id/textViewQuantityAddLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewQuantityEditLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewQuantityEditLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewQuantityEditLabel"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <Button
-        android:id="@+id/buttonCancelAdd"
+        android:id="@+id/buttonCancelEdit"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/design_default_color_error"
-        android:onClick="buttonCancelAddPressed"
+        android:onClick="buttonCancelEditPressed"
         android:text="@android:string/cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEditQuantity" />
 
     <Button
-        android:id="@+id/buttonOkAdd"
+        android:id="@+id/buttonOkEdit"
         android:layout_width="100dp"
         android:layout_height="52dp"
         android:layout_marginEnd="32dp"
-        android:onClick="buttonOkAddPressed"
+        android:onClick="buttonOkEditPressed"
         android:text="@android:string/ok"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonCancelAdd"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonCancelEdit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonCancelAdd" />
+        app:layout_constraintTop_toTopOf="@+id/buttonCancelEdit" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="@string/remove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCancelEdit"
+        android:onClick="buttonRemoveEditPressed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

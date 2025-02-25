@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    tools:context=".ReturnActivity">
+
+    <Button
+        android:id="@+id/buttonReturnAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:onClick="buttonReturnAllPressed"
+        android:text="@string/button_text_all"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewLabel" />
+
+    <TextView
+        android:id="@+id/textViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/return_text_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerReturn" />
+
+    <Button
+        android:id="@+id/buttonCancelReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:onClick="buttonCancelReturnPressed"
+        android:text="@android:string/cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLabel" />
+
+    <Button
+        android:id="@+id/buttonOkReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:onClick="buttonOkReturnPressed"
+        android:text="@android:string/ok"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonCancelReturn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonCancelReturn" />
+
+    <TextView
+        android:id="@+id/textViewReturnName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/border"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReturnActivityLabel" />
+
+    <Spinner
+        android:id="@+id/spinnerReturn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReturnName" />
+
+    <TextView
+        android:id="@+id/textViewReturnActivityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/return_text"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextReturnQuantity"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="number"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewLabel"
+        tools:ignore="Autofill,LabelFor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
+    tools:context=".IssueActivity">
+
+    <TextView
+        android:id="@+id/textViewIssueName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/border"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerIssue"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIssueName"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/buttonAddJob"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:onClick="ButtonAddJobPressed"
+        android:text="@string/add_job_button_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIssueQuantity" />
+
+    <Button
+        android:id="@+id/buttonIssueCancel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:onClick="buttonIssueCancelPressed"
+        android:text="@android:string/cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddJob" />
+
+    <Button
+        android:id="@+id/buttonIssueOk"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="@android:string/ok"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonIssueCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonIssueCancel"
+        android:onClick="buttonIssueOkPressed"/>
+
+    <EditText
+        android:id="@+id/editTextIssueQuantity"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewIssueQuantityLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewIssueQuantityLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewIssueQuantityLabel"
+        tools:ignore="Autofill,LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/textViewIssueQuantityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/quantity_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInStoreLabel" />
+
+    <TextView
+        android:id="@+id/textViewInStoreLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/in_store_label"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIssueTotalLabel" />
+
+    <TextView
+        android:id="@+id/textViewInStoreDigit"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewInStoreLabel"
+        app:layout_constraintEnd_toEndOf="@+id/editTextIssueQuantity"
+        app:layout_constraintStart_toStartOf="@+id/editTextIssueQuantity"
+        app:layout_constraintTop_toTopOf="@+id/textViewInStoreLabel" />
+
+    <TextView
+        android:id="@+id/textViewIssueTotalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        android:text="Total:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerIssue" />
+
+    <TextView
+        android:id="@+id/textViewIssueTotal"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:background="@drawable/border"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewIssueTotalLabel"
+        app:layout_constraintEnd_toEndOf="@+id/textViewInStoreDigit"
+        app:layout_constraintStart_toStartOf="@+id/textViewInStoreDigit"
+        app:layout_constraintTop_toTopOf="@+id/textViewIssueTotalLabel" />
+</androidx.constraintlayout.widget.ConstraintLayout>

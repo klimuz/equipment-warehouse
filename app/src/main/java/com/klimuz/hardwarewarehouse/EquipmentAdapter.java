@@ -13,9 +13,19 @@ import java.util.ArrayList;
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
 
     private ArrayList<Equipment> equipmentList;
+    private OnEquipmentClickListener onEquipmentClickListener;
 
     public EquipmentAdapter(ArrayList<Equipment> equipmentList) {
         this.equipmentList = equipmentList;
+    }
+
+    interface OnEquipmentClickListener{
+        void onEquipmentClick(int position);
+        void onLongClick(int position);
+    }
+
+    public void setOnEquipmentClickListener(OnEquipmentClickListener onEquipmentClickListener) {
+        this.onEquipmentClickListener = onEquipmentClickListener;
     }
 
     @NonNull
@@ -33,6 +43,9 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
         holder.textViewTotalQuantity.setText(String.format("%s", equipment.getTotalQuantity()));
         holder.textViewInStock.setText(String.format("%s", equipment.getInStock()));
         holder.textViewInUse.setText(String.format("%s", equipment.getInUse()));
+
+
+
     }
 
     @Override
@@ -49,6 +62,23 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
             textViewTotalQuantity = itemView.findViewById(R.id.textViewTotalQuantity);
             textViewInStock = itemView.findViewById(R.id.textViewInStock);
             textViewInUse = itemView.findViewById(R.id.textViewInUse);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onEquipmentClickListener != null){
+                        onEquipmentClickListener.onEquipmentClick(getAdapterPosition());
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (onEquipmentClickListener != null){
+                        onEquipmentClickListener.onLongClick(getAdapterPosition());
+                    }
+                    return true;
+                }
+            });
         }
     }
 

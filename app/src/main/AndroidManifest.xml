@@ -13,6 +13,18 @@
         android:theme="@style/Theme.HardwareWarehouse"
         tools:targetApi="31">
         <activity
+            android:name=".ReturnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddJobActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IssueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddItemActivity"
             android:exported="false" />
         <activity
