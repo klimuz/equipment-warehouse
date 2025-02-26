@@ -29,4 +29,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="are_you_sure">Are You sure?</string>
+    <string name="it_is_impossible_to_take_more_than">It is impossible to take more than %d</string>
+    <string name="it_is_impossible_to_return_more_than">It is impossible to return more than %d</string>
+    <string name="list_already_contains">List already contains %s</string>
 </resources>

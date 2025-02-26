@@ -1,5 +1,6 @@
 package com.klimuz.hardwarewarehouse;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -82,8 +83,15 @@ public class IssueActivity extends AppCompatActivity {
             String issueQuantityString = editTextIssueQuantity.getText().toString();
             if (!issueQuantityString.isEmpty()) {
                 int issueQuantityInt = Integer.parseInt(issueQuantityString);
-                Globals.items.get(position).updateJobsInfo(selectedJobIndex, issueQuantityInt);
-                goToMain();
+                int inStock = Globals.items.get(position).getInStock();
+                if (issueQuantityInt <= inStock){
+                    Globals.items.get(position).updateJobsInfo(selectedJobIndex, issueQuantityInt);
+                    goToMain();
+                } else {
+                    String impossible =
+                            String.format(getString(R.string.it_is_impossible_to_take_more_than), inStock);
+                    Toast.makeText(this, impossible, Toast.LENGTH_LONG).show();
+                }
             } else {
                 String fillQuantity = getString(R.string.fill_quantity);
                 Toast.makeText(this, fillQuantity, Toast.LENGTH_LONG).show();

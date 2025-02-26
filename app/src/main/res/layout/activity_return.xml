@@ -33,7 +33,7 @@
 
     <Button
         android:id="@+id/buttonCancelReturn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="100dp"
@@ -45,7 +45,7 @@
 
     <Button
         android:id="@+id/buttonOkReturn"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
         android:onClick="buttonOkReturnPressed"
@@ -57,9 +57,9 @@
     <TextView
         android:id="@+id/textViewReturnName"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/border"
         android:padding="8dp"
@@ -75,18 +75,20 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:background="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewReturnName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewReturnJobLabel" />
 
     <TextView
         android:id="@+id/textViewReturnActivityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/return_text"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -102,10 +104,47 @@
         android:background="@drawable/border"
         android:ems="10"
         android:inputType="number"
-        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textViewLabel"
         app:layout_constraintStart_toEndOf="@+id/textViewLabel"
         app:layout_constraintTop_toTopOf="@+id/textViewLabel"
         tools:ignore="Autofill,LabelFor" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCancelReturn"
+        app:srcCompat="@drawable/splash" />
+
+    <TextView
+        android:id="@+id/textViewReturnJobLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Job :"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonClearEmptyJobs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewReturnName" />
+
+    <Button
+        android:id="@+id/buttonClearEmptyJobs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/design_default_color_primary_variant"
+        android:gravity="center"
+        android:text="Clear \n empty"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewReturnJobLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewReturnJobLabel"
+        app:layout_constraintTop_toTopOf="@+id/textViewReturnJobLabel"
+        app:layout_constraintVertical_bias="0.482"
+        android:onClick="buttonClearEmptyJobsPressed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

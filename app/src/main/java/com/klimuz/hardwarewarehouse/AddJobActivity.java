@@ -28,7 +28,7 @@ public class AddJobActivity extends AppCompatActivity {
     public void buttonAddJobOkPressed(View view) {
         String jobName = editTextAddJobName.getText().toString().trim();
         if (!jobName.isEmpty()){
-            Globals.createJob(jobName);
+            Globals.createJob(jobName, this);
             Intent intent = new Intent(this, IssueActivity.class);
             intent.putExtra("position", position);
             startActivity(intent);

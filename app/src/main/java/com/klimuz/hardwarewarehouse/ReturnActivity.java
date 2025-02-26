@@ -1,5 +1,6 @@
 package com.klimuz.hardwarewarehouse;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,7 +31,7 @@ public class ReturnActivity extends AppCompatActivity {
         editTextReturnQuantity = findViewById(R.id.editTextReturnQuantity);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
             itemPosition = bundle.getInt("position");
             String name = Globals.items.get(itemPosition).getName();
             textViewReturnName.setText(name);
@@ -57,6 +59,7 @@ public class ReturnActivity extends AppCompatActivity {
     public void buttonReturnAllPressed(View view) {
         returnQuantity = Globals.items.get(itemPosition).getJobsInfo(selectedJobIndex);
         Globals.items.get(itemPosition).returnToStock(selectedJobIndex, returnQuantity);
+//        Globals.removeJobs();
         goToMain();
     }
 
@@ -68,14 +71,25 @@ public class ReturnActivity extends AppCompatActivity {
         String returnQuantityString = editTextReturnQuantity.getText().toString().trim();
         returnQuantity = Integer.parseInt(returnQuantityString);
         int inJob = Globals.items.get(itemPosition).getJobsInfo(selectedJobIndex);
-        if (inJob >= returnQuantity){
+        if (inJob >= returnQuantity) {
             Globals.items.get(itemPosition).returnToStock(selectedJobIndex, returnQuantity);
+//            if (inJob == returnQuantity) {
+//                Globals.removeJobs();
+//            }
             goToMain();
+        } else {
+            String impossibleToReturn =
+                    String.format(getString(R.string.it_is_impossible_to_return_more_than), inJob);
+            Toast.makeText(this, impossibleToReturn, Toast.LENGTH_LONG).show();
         }
     }
 
-    private void goToMain(){
+    private void goToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void buttonClearEmptyJobsPressed(View view) {
+        Globals.removeJobs();
     }
 }

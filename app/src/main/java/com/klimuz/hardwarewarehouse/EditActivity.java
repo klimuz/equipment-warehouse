@@ -52,9 +52,7 @@ public class EditActivity extends AppCompatActivity {
 
     public void buttonRemoveEditPressed(View view) {
         String areYouSure = getString(R.string.are_you_sure);
-        showDialog(areYouSure);
-        Globals.items.remove(position);
-        goToMain();
+        removeShowDialog(areYouSure);
     }
 
     private void goToMain(){
@@ -62,12 +60,14 @@ public class EditActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void showDialog(String dialogText){
+    private void removeShowDialog(String dialogText){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(dialogText)
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        Globals.items.remove(position);
+                        goToMain();
                     }
                 })
                 .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {

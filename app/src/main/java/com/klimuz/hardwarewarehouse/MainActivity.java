@@ -21,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
 
+        if (Globals.items.isEmpty()){
+            Globals.items.add(new Equipment("пульт", 5));
+            Globals.items.add(new Equipment("микрофон", 300));
+            Globals.items.add(new Equipment("стойка", 300));
+            Globals.items.add(new Equipment("кабель", 500));
+            Globals.items.add(new Equipment("дибокс", 50));
+        }
+
         EquipmentAdapter adapter = new EquipmentAdapter(Globals.items);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewItems.setAdapter(adapter);
@@ -86,8 +94,5 @@ public class MainActivity extends AppCompatActivity {
     public void buttonAddPressed(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
-    }
-
-    public void buttonUndoPressed(View view) {
     }
 }

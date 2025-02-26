@@ -41,15 +41,7 @@
             android:layout_margin="4dp"
             android:onClick="buttonAddPressed"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonUndo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/undo_description"
-            app:srcCompat="@android:drawable/ic_menu_revert"
-            android:layout_margin="4dp"
-            android:onClick="buttonUndoPressed"/>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

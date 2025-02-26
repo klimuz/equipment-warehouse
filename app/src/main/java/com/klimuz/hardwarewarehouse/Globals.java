@@ -1,38 +1,45 @@
 package com.klimuz.hardwarewarehouse;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class Globals {
     public static final ArrayList<Equipment> items = new ArrayList<>();
     public static final ArrayList<String> jobs = new ArrayList<>();
 
-    public static void createJob(String name) {
-        jobs.add(name);
-        for (Equipment equipment : items) {
-            equipment.setJobsInfo(0);
+    public static void createJob(String name, Context context) {
+        if (!jobs.contains(name)) {
+            jobs.add(name);
+            for (Equipment equipment : items) {
+                equipment.setJobsInfo(0);
+            }
+        } else {
+            String alreadyContains = String.format(context.getString(R.string.list_already_contains), name);
+            Toast.makeText(context, alreadyContains, Toast.LENGTH_LONG).show();
         }
     }
 
     public static void removeJobs() {
         ArrayList<Integer> indicesToRemove = new ArrayList<>();
-        if (!items.isEmpty()) {
-            int size = items.get(0).getJobsList().size();
-            for (int i = 0; i < size; i++) {
-                boolean allZeros = true;
+        int counter = 0;
+        if (!jobs.isEmpty()) {
+            for (int j = 0; j < jobs.size(); j++) {
                 for (Equipment equipment : items) {
-                    if (equipment.getJobsList().get(i) != 0) {
-                        allZeros = false;
-                        break;
-                    }
+                    counter += equipment.getJobsList().get(j);
                 }
-                if (allZeros) {
-                    indicesToRemove.add(i);
+                if (counter == 0) {
+                    indicesToRemove.add(j);
                 }
+                counter = 0;
             }
-            for (Equipment equipment : items) {
-                for (int i = indicesToRemove.size() - 1; i >= 0; i--) {
-                    equipment.removeJob(indicesToRemove.get(i));
-                }
+            for (int i = indicesToRemove.size() - 1; i >= 0; i--) {
+                int index = indicesToRemove.get(i);
+                jobs.remove(index);
+                for (Equipment equipment : items)
+                    equipment.removeJob(index);
             }
         }
     }
