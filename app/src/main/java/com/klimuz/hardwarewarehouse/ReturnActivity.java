@@ -59,7 +59,6 @@ public class ReturnActivity extends AppCompatActivity {
     public void buttonReturnAllPressed(View view) {
         returnQuantity = Globals.items.get(itemPosition).getJobsInfo(selectedJobIndex);
         Globals.items.get(itemPosition).returnToStock(selectedJobIndex, returnQuantity);
-//        Globals.removeJobs();
         goToMain();
     }
 
@@ -73,9 +72,6 @@ public class ReturnActivity extends AppCompatActivity {
         int inJob = Globals.items.get(itemPosition).getJobsInfo(selectedJobIndex);
         if (inJob >= returnQuantity) {
             Globals.items.get(itemPosition).returnToStock(selectedJobIndex, returnQuantity);
-//            if (inJob == returnQuantity) {
-//                Globals.removeJobs();
-//            }
             goToMain();
         } else {
             String impossibleToReturn =

@@ -54,20 +54,24 @@ public class Equipment {
     }
 
     public void setJobsInfo(int equipmentQuantity){
+
         jobsInfo.add(equipmentQuantity);
     }
 
-    public int getJobsInfo(int jobIndex){
+    public int getJobsInfo(int jobIndex) {
         int equipmentQuantity = 0;
-        if (!jobsInfo.isEmpty()) {
+        if (!jobsInfo.isEmpty() && jobIndex < jobsInfo.size()) {
             equipmentQuantity = jobsInfo.get(jobIndex);
         }
         return equipmentQuantity;
     }
 
+
     public ArrayList<Integer> getJobsList(){
         return jobsInfo;
     }
+
+
 
     public void setJobsList(ArrayList<Integer> newJobsInfo){
         jobsInfo = newJobsInfo;

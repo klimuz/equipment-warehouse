@@ -1,10 +1,10 @@
 package com.klimuz.hardwarewarehouse;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -15,19 +15,14 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewItems;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
 
-        if (Globals.items.isEmpty()){
-            Globals.items.add(new Equipment("пульт", 5));
-            Globals.items.add(new Equipment("микрофон", 300));
-            Globals.items.add(new Equipment("стойка", 300));
-            Globals.items.add(new Equipment("кабель", 500));
-            Globals.items.add(new Equipment("дибокс", 50));
-        }
+        Globals.arrayListsFromDB(this);
 
         EquipmentAdapter adapter = new EquipmentAdapter(Globals.items);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
@@ -64,6 +59,36 @@ public class MainActivity extends AppCompatActivity {
         });
         itemTouchHelper.attachToRecyclerView(recyclerViewItems);
 
+        SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
+        if (preferences != null) {
+            int scrollPosition = preferences.getInt("scrollPosition", 0);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerViewItems.getLayoutManager();
+        assert layoutManager != null;
+        int scrollPosition = layoutManager.findFirstVisibleItemPosition();
+        SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("scrollPosition", scrollPosition);
+        editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
+        int scrollPosition = preferences.getInt("scrollPosition", 0);
+        recyclerViewItems.scrollToPosition(scrollPosition);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Globals.arraylistsToDB(this);
     }
 
     private void openEditActivity(int position) {

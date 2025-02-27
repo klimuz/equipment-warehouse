@@ -1,14 +1,13 @@
 package com.klimuz.hardwarewarehouse;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class Globals {
-    public static final ArrayList<Equipment> items = new ArrayList<>();
-    public static final ArrayList<String> jobs = new ArrayList<>();
+    public static ArrayList<Equipment> items = new ArrayList<>();
+    public static ArrayList<String> jobs = new ArrayList<>();
 
     public static void createJob(String name, Context context) {
         if (!jobs.contains(name)) {
@@ -41,6 +40,22 @@ public class Globals {
                 for (Equipment equipment : items)
                     equipment.removeJob(index);
             }
+        }
+    }
+    public static void arrayListsFromDB(Context context){
+        DatabaseManager databaseManager = new DatabaseManager(context);
+        if (items.isEmpty()){
+            items = databaseManager.getEquipmentList();
+        }
+        if (jobs.isEmpty()){
+            jobs = databaseManager.getJobs();
+        }
+    }
+    public static void arraylistsToDB(Context context){
+        DatabaseManager databaseManager = new DatabaseManager(context);
+        if (!items.isEmpty()){
+            databaseManager.saveEquipment(items);
+            databaseManager.saveJobs(jobs);
         }
     }
 }
