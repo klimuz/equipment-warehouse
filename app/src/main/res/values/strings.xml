@@ -32,4 +32,6 @@
     <string name="it_is_impossible_to_take_more_than">It is impossible to take more than %d</string>
     <string name="it_is_impossible_to_return_more_than">It is impossible to return more than %d</string>
     <string name="list_already_contains">List already contains %s</string>
+    <string name="save_exit">Save exit</string>
+    <string name="delete">Delete</string>
 </resources>

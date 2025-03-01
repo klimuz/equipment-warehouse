@@ -1,6 +1,5 @@
 package com.klimuz.hardwarewarehouse;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +20,7 @@ public class ReturnActivity extends AppCompatActivity {
     private int itemPosition;
     private int selectedJobIndex = 0;
     private int returnQuantity;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ReturnActivity extends AppCompatActivity {
             textViewReturnName.setText(name);
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Globals.jobs);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -87,5 +87,6 @@ public class ReturnActivity extends AppCompatActivity {
 
     public void buttonClearEmptyJobsPressed(View view) {
         Globals.removeJobs();
+        adapter.notifyDataSetChanged();
     }
 }

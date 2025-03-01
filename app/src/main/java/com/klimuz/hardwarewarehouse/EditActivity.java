@@ -66,7 +66,7 @@ public class EditActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Globals.items.remove(position);
+                        Globals.removeEquipment(position,EditActivity.this);
                         goToMain();
                     }
                 })

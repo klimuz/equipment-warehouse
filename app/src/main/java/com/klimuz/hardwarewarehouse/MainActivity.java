@@ -3,6 +3,7 @@ package com.klimuz.hardwarewarehouse;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewItems;
+    private EquipmentAdapter adapter;
 
 
     @Override
@@ -22,11 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
 
-        Globals.arrayListsFromDB(this);
+        if (Globals.items.isEmpty()) {
+            Globals.arrayListsFromDB(this);
+        }
 
-        EquipmentAdapter adapter = new EquipmentAdapter(Globals.items);
+        Log.i("myLog", String.valueOf(Globals.items.size()));
+
+        SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
+        if (preferences != null) {
+            int scrollPosition = preferences.getInt("scrollPosition", 0);
+
+        adapter = new EquipmentAdapter(Globals.items);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewItems.setAdapter(adapter);
+        recyclerViewItems.scrollToPosition(scrollPosition);
         adapter.setOnEquipmentClickListener(new EquipmentAdapter.OnEquipmentClickListener() {
             @Override
             public void onEquipmentClick(int position) {
@@ -58,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         itemTouchHelper.attachToRecyclerView(recyclerViewItems);
-
-        SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
-        if (preferences != null) {
-            int scrollPosition = preferences.getInt("scrollPosition", 0);
         }
     }
 
@@ -83,12 +90,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
         int scrollPosition = preferences.getInt("scrollPosition", 0);
         recyclerViewItems.scrollToPosition(scrollPosition);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
         Globals.arraylistsToDB(this);
+
     }
 
     private void openEditActivity(int position) {
@@ -119,5 +122,18 @@ public class MainActivity extends AppCompatActivity {
     public void buttonAddPressed(View view) {
         Intent intent = new Intent(this, AddItemActivity.class);
         startActivity(intent);
+    }
+
+    public void buttonSavePressed(View view) {
+        Globals.arraylistsToDB(this);
+        finishAffinity();
+        System.exit(0);
+    }
+
+    public void buttonDeletePressed(View view) {
+        DatabaseManager databaseManager = new DatabaseManager(this);
+        databaseManager.resetDatabase();
+        Globals.items.clear();
+        adapter.notifyDataSetChanged();
     }
 }

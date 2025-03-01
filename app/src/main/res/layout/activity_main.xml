@@ -41,6 +41,30 @@
             android:layout_margin="4dp"
             android:onClick="buttonAddPressed"/>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="@string/save_exit"
+            android:foregroundGravity="center"
+            app:srcCompat="@android:drawable/ic_menu_save"
+            android:layout_margin="4dp"
+            android:onClick="buttonSavePressed"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="@string/delete"
+            android:foregroundGravity="center"
+            android:layout_margin="4dp"
+            app:srcCompat="@android:drawable/ic_delete"
+            android:onClick="buttonDeletePressed"/>
+
 
     </LinearLayout>
 

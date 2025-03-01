@@ -51,13 +51,23 @@ public class Globals {
             jobs = databaseManager.getJobs();
         }
     }
+
     public static void arraylistsToDB(Context context){
         DatabaseManager databaseManager = new DatabaseManager(context);
-        if (!items.isEmpty()){
-            databaseManager.saveEquipment(items);
+        if (!jobs.isEmpty()) {//(!items.isEmpty()){
             databaseManager.saveJobs(jobs);
         }
+        if (!items.isEmpty()) {
+                databaseManager.saveEquipment(items);
+        } // }
+
     }
+
+    public static void removeEquipment(int index, Context context){
+        items.remove(index);
+        arraylistsToDB(context);
+    }
+
 }
 
 

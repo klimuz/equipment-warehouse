@@ -21,6 +21,7 @@ public class DatabaseManager {
 
     // Метод для сохранения jobs
     public void saveJobs(ArrayList<String> jobs) {
+        db.execSQL("DELETE FROM " + DBHelper.TABLE_JOB_NAMES);
         for (String job : jobs) {
             saveJobName(job);
         }
@@ -30,16 +31,19 @@ public class DatabaseManager {
     private void saveJobName(String jobName) {
         ContentValues values = new ContentValues();
         values.put("name", jobName);
-        db.insert("jobNames", null, values);
+        db.insert(DBHelper.TABLE_JOB_NAMES, null, values);
     }
 
     // Метод для сохранения оборудования
     public void saveEquipment(ArrayList<Equipment> items) {
-        for (Equipment equipment : items) {
+        db.execSQL("DELETE FROM " + DBHelper.TABLE_JOBS_INFO);
+        db.execSQL("DELETE FROM " + DBHelper.TABLE_EQUIPMENT);
+        for (int i = 0; i < items.size(); i++) {
+            Equipment equipment = items.get(i);
             ContentValues values = new ContentValues();
             values.put("name", equipment.getName());
             values.put("totalQuantity", equipment.getTotalQuantity());
-            long equipmentId = db.insert("Equipment", null, values);
+            long equipmentId = db.insert(DBHelper.TABLE_EQUIPMENT, null, values);
 
             saveJobsInfo(equipmentId, equipment.getJobsList());
         }
@@ -48,7 +52,7 @@ public class DatabaseManager {
     // Метод для сохранения jobsInfo
     private void saveJobsInfo(long equipmentId, ArrayList<Integer> jobsInfo) {
         for (int i = 0; i < jobsInfo.size(); i++) {
-            int jobNameId = getJobNameId(jobs.get(i));
+            int jobNameId = i;//getJobNameId(jobs.get(i));
             ContentValues jobValues = new ContentValues();
             jobValues.put("equipmentId", equipmentId);
             jobValues.put("jobNameId", jobNameId);
@@ -182,6 +186,11 @@ public class DatabaseManager {
         }
         cursor.close();
         return jobs;
+    }
+
+    // Функция сброса базы данных
+    public void resetDatabase() {
+        dbHelper.resetDatabase();
     }
 
 }
