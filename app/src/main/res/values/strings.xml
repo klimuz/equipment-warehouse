@@ -10,7 +10,7 @@
     <string name="hardware_splash_text">HARDWARE</string>
     <string name="warehouse_splash_text">WAREHOUSE</string>
     <string name="add_to_store_description">Add to store</string>
-    <string name="undo_description">Undo</string>
+    <string name="undo_description" translatable="false">Undo</string>
     <string name="quantity_label">Quantity:</string>
     <string name="name_hint">Name</string>
     <string name="fill_all_fields">Fill all fields</string>
@@ -34,4 +34,24 @@
     <string name="list_already_contains">List already contains %s</string>
     <string name="save_exit">Save exit</string>
     <string name="delete">Delete</string>
+    <string name="clear_n_empty">Clear \n empty</string>
+    <string name="job">Job :</string>
+    <string name="issue">Issue</string>
+    <string name="total">Total:</string>
+    <string name="edit_label">Edit</string>
+    <string name="add_job_label">Add job</string>
+    <string name="list_already_contains_s_overwrite">List already contains %s, overwrite?</string>
+    <string name="name">Name</string>
+    <string name="nothing_to_save">Nothing to save!</string>
+    <string name="file_will_saved_to_downloads">File will saved to \n \"Downloads\"</string>
+    <string name="create_and_share">Create And Share</string>
+    <string name="select_job_first">select job first:</string>
+    <string name="create_excel_file">Create excel file</string>
+    <string name="file_xls_saved">File %s.xls saved</string>
+    <string name="file_xls_not_saved">File %s.xls not saved</string>
+    <string name="tool">Tool</string>
+    <string name="quantity">Quantity</string>
+    <string name="excel_file">Excel File</string>
+    <string name="please_find_attached_the_excel_file">Please find attached the Excel file.</string>
+    <string name="send_email">Send Email</string>
 </resources>

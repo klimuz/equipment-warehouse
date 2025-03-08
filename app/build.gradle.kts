@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.klimuz.hardwarewarehouse"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -37,6 +37,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.poi.v540)
+    implementation(libs.poi.ooxml.v523)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

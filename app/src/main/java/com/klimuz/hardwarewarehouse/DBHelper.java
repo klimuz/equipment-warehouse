@@ -35,8 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "equipmentId INTEGER, "
                 + "jobNameId INTEGER, "
                 + "quantity INTEGER)");
-//                + "FOREIGN KEY(equipmentId) REFERENCES " + TABLE_EQUIPMENT + "(id) ON DELETE CASCADE ON UPDATE CASCADE, "
-//                + "FOREIGN KEY(jobNameId) REFERENCES " + TABLE_JOB_NAMES + "(id) ON DELETE CASCADE ON UPDATE CASCADE)");
     }
 
     @Override

@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLabelEdit"
         tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
     <TextView
@@ -94,11 +94,11 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonCancelEdit" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewLabelEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Edit"
+        android:text="@string/edit_label"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -103,7 +103,6 @@ public class IssueActivity extends AppCompatActivity {
 
     private void goToMain(){
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("scroll_position", position);
         startActivity(intent);
     }
 }

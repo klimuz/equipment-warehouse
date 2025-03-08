@@ -148,7 +148,8 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
             app:layout_constraintStart_toEndOf="@+id/textViewTotalQuantity"
             app:layout_constraintTop_toBottomOf="@+id/textViewName"
-            app:srcCompat="@drawable/splash" />
+            app:srcCompat="@drawable/splash"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

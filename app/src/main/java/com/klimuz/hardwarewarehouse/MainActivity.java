@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -34,41 +35,41 @@ public class MainActivity extends AppCompatActivity {
         if (preferences != null) {
             int scrollPosition = preferences.getInt("scrollPosition", 0);
 
-        adapter = new EquipmentAdapter(Globals.items);
-        recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewItems.setAdapter(adapter);
-        recyclerViewItems.scrollToPosition(scrollPosition);
-        adapter.setOnEquipmentClickListener(new EquipmentAdapter.OnEquipmentClickListener() {
-            @Override
-            public void onEquipmentClick(int position) {
+            adapter = new EquipmentAdapter(Globals.items);
+            recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
+            recyclerViewItems.setAdapter(adapter);
+            recyclerViewItems.scrollToPosition(scrollPosition);
+            adapter.setOnEquipmentClickListener(new EquipmentAdapter.OnEquipmentClickListener() {
+                @Override
+                public void onEquipmentClick(int position) {
 
-            }
-
-            @Override
-            public void onLongClick(int position) {
-                openEditActivity(position);
-            }
-        });
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                switch (direction) {
-                    case 4:
-                        openIssueActivity(viewHolder.getAdapterPosition());
-                        break;
-                    case 8:
-                        openReturnActivity(viewHolder.getAdapterPosition());
-                        break;
                 }
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(recyclerViewItems);
+
+                @Override
+                public void onLongClick(int position) {
+                    openEditActivity(position);
+                }
+            });
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    switch (direction) {
+                        case 4:
+                            openIssueActivity(viewHolder.getAdapterPosition());
+                            break;
+                        case 8:
+                            openReturnActivity(viewHolder.getAdapterPosition());
+                            break;
+                    }
+                }
+            });
+            itemTouchHelper.attachToRecyclerView(recyclerViewItems);
         }
     }
 
@@ -126,14 +127,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonSavePressed(View view) {
         Globals.arraylistsToDB(this);
-        finishAffinity();
-        System.exit(0);
+        if (Globals.jobs.isEmpty()) {
+            String nothingToSave = getString(R.string.nothing_to_save);
+            Toast.makeText(this, nothingToSave, Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(this, SaveActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void buttonDeletePressed(View view) {
         DatabaseManager databaseManager = new DatabaseManager(this);
         databaseManager.resetDatabase();
         Globals.items.clear();
+        Globals.jobs.clear();
         adapter.notifyDataSetChanged();
     }
 }

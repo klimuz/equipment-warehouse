@@ -18,7 +18,6 @@ public class DatabaseManager {
         this.db = dbHelper.getWritableDatabase();
         this.jobs = new ArrayList<>(); // Инициализация jobs внутри конструктора
     }
-
     // Метод для сохранения jobs
     public void saveJobs(ArrayList<String> jobs) {
         db.execSQL("DELETE FROM " + DBHelper.TABLE_JOB_NAMES);
@@ -26,14 +25,12 @@ public class DatabaseManager {
             saveJobName(job);
         }
     }
-
     // Метод для сохранения отдельного jobName
     private void saveJobName(String jobName) {
         ContentValues values = new ContentValues();
         values.put("name", jobName);
         db.insert(DBHelper.TABLE_JOB_NAMES, null, values);
     }
-
     // Метод для сохранения оборудования
     public void saveEquipment(ArrayList<Equipment> items) {
         db.execSQL("DELETE FROM " + DBHelper.TABLE_JOBS_INFO);
@@ -48,7 +45,6 @@ public class DatabaseManager {
             saveJobsInfo(equipmentId, equipment.getJobsList());
         }
     }
-
     // Метод для сохранения jobsInfo
     private void saveJobsInfo(long equipmentId, ArrayList<Integer> jobsInfo) {
         for (int i = 0; i < jobsInfo.size(); i++) {
@@ -60,22 +56,6 @@ public class DatabaseManager {
             db.insert("jobsInfo", null, jobValues);
         }
     }
-
-    // Метод для получения ID jobName
-    private int getJobNameId(String jobName) {
-        Cursor cursor = db.query("jobNames", new String[]{"id"}, "name=?", new String[]{jobName}, null, null, null);
-        if (cursor.moveToFirst()) {
-            int id = cursor.getInt(0);
-            cursor.close();
-            return id;
-        } else {
-            cursor.close();
-            ContentValues values = new ContentValues();
-            values.put("name", jobName);
-            return (int) db.insert("jobNames", null, values);
-        }
-    }
-
     // Метод для чтения оборудования
     public ArrayList<Equipment> getEquipmentList() {
         ArrayList<Equipment> equipmentList = new ArrayList<>();
@@ -129,47 +109,6 @@ public class DatabaseManager {
         cursor.close();
         return equipmentList;
     }
-
-
-    // Метод для получения количества Equipment
-    public int getEquipmentCount() {
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Equipment", null);
-        if (cursor.moveToFirst()) {
-            int count = cursor.getInt(0);
-            cursor.close();
-            return count;
-        } else {
-            cursor.close();
-            return 0;
-        }
-    }
-
-    // Метод для получения jobName по ID
-    public String getJobName(int jobNameId) {
-        Cursor cursor = db.query("jobNames", new String[]{"name"}, "id=?", new String[]{String.valueOf(jobNameId)}, null, null, null);
-        if (cursor.moveToFirst()) {
-            String name = cursor.getString(0);
-            cursor.close();
-            return name;
-        } else {
-            cursor.close();
-            return null;
-        }
-    }
-
-    // Метод для получения количества jobNames
-    public int getJobNamesCount() {
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM jobNames", null);
-        if (cursor.moveToFirst()) {
-            int count = cursor.getInt(0);
-            cursor.close();
-            return count;
-        } else {
-            cursor.close();
-            return 0;
-        }
-    }
-
     // Метод для чтения jobNames
     public ArrayList<String> getJobs() {
         ArrayList<String> jobs = new ArrayList<>();
@@ -187,7 +126,6 @@ public class DatabaseManager {
         cursor.close();
         return jobs;
     }
-
     // Функция сброса базы данных
     public void resetDatabase() {
         dbHelper.resetDatabase();
