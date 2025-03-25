@@ -49,9 +49,19 @@
     <string name="create_excel_file">Create excel file</string>
     <string name="file_xls_saved">File %s.xls saved</string>
     <string name="file_xls_not_saved">File %s.xls not saved</string>
-    <string name="tool">Tool</string>
-    <string name="quantity">Quantity</string>
     <string name="excel_file">Excel File</string>
     <string name="please_find_attached_the_excel_file">Please find attached the Excel file.</string>
     <string name="send_email">Send Email</string>
+    <string name="excel_rowname_tool">Tool</string>
+    <string name="excel_row_name_quantity">Quantity</string>
+    <string name="internet_unavailable">Internet unavailable!</string>
+    <string name="exit">Exit</string>
+    <string name="exit_button_text">Exit</string>
+    <string name="save_to_internet">Save to internet</string>
+    <string name="offline">Offline</string>
+    <string name="retry">Retry</string>
+    <string name="not_loaded">Not loaded!</string>
+    <string name="problem_with_internet">It\'s looks like You have problem with internet or server, retry or work offline?</string>
+    <string name="uploaded">Uploaded!</string>
+    <string name="button_text_retry">Retry!</string>
 </resources>

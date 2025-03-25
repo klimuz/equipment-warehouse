@@ -71,13 +71,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="43dp"
         android:layout_marginEnd="16dp"
+        android:onClick="buttonCreateAndSharePressed"
         android:text="@string/create_and_share"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFileLocationLabel"
-        android:onClick="buttonCreateAndSharePressed"/>
+        app:layout_constraintTop_toBottomOf="@+id/buttonSaveInternet" />
 
     <Button
         android:id="@+id/buttonCreateExit"
@@ -87,10 +87,22 @@
         android:layout_marginTop="43dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/design_default_color_error"
-        android:text="@android:string/cancel"
+        android:text="@string/exit_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCreateAndShare"
         android:onClick="buttonCreateExitPressed"/>
+
+    <Button
+        android:id="@+id/buttonSaveInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="@string/save_to_internet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFileLocationLabel"
+        android:onClick="buttonSaveInternetPressed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

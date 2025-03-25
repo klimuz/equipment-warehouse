@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
 
-    private ArrayList<Equipment> equipmentList;
+    private final ArrayList<Equipment> equipmentList;
     private OnEquipmentClickListener onEquipmentClickListener;
 
     public EquipmentAdapter(ArrayList<Equipment> equipmentList) {

@@ -1,137 +1,102 @@
 package com.klimuz.hardwarewarehouse;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class DatabaseManager {
-    private DBHelper dbHelper;
-    private SQLiteDatabase db;
-    private ArrayList<String> jobs;
+    private static final String DATABASE_NAME = "inventory.db";
+    private final Context context;
 
+    // Конструктор
     public DatabaseManager(Context context) {
-        this.dbHelper = new DBHelper(context);
-        this.db = dbHelper.getWritableDatabase();
-        this.jobs = new ArrayList<>(); // Инициализация jobs внутри конструктора
+        this.context = context;
     }
-    // Метод для сохранения jobs
-    public void saveJobs(ArrayList<String> jobs) {
-        db.execSQL("DELETE FROM " + DBHelper.TABLE_JOB_NAMES);
-        for (String job : jobs) {
-            saveJobName(job);
-        }
-    }
-    // Метод для сохранения отдельного jobName
-    private void saveJobName(String jobName) {
-        ContentValues values = new ContentValues();
-        values.put("name", jobName);
-        db.insert(DBHelper.TABLE_JOB_NAMES, null, values);
-    }
-    // Метод для сохранения оборудования
-    public void saveEquipment(ArrayList<Equipment> items) {
-        db.execSQL("DELETE FROM " + DBHelper.TABLE_JOBS_INFO);
-        db.execSQL("DELETE FROM " + DBHelper.TABLE_EQUIPMENT);
-        for (int i = 0; i < items.size(); i++) {
-            Equipment equipment = items.get(i);
-            ContentValues values = new ContentValues();
-            values.put("name", equipment.getName());
-            values.put("totalQuantity", equipment.getTotalQuantity());
-            long equipmentId = db.insert(DBHelper.TABLE_EQUIPMENT, null, values);
 
-            saveJobsInfo(equipmentId, equipment.getJobsList());
-        }
-    }
-    // Метод для сохранения jobsInfo
-    private void saveJobsInfo(long equipmentId, ArrayList<Integer> jobsInfo) {
-        for (int i = 0; i < jobsInfo.size(); i++) {
-            int jobNameId = i;//getJobNameId(jobs.get(i));
+    /**
+     * Функция для сохранения данных в SQLite.
+     * Использует Globals.items и Globals.jobs.
+     */
+    public void saveDataToDatabase() {
+        SQLiteDatabase db = context.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
+
+        // Создание таблиц, если они еще не существуют
+        db.execSQL("CREATE TABLE IF NOT EXISTS equipment (name TEXT, totalQuantity INTEGER, jobsList TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS jobs (name TEXT)");
+
+        // Очистка таблиц
+        db.execSQL("DELETE FROM equipment");
+        db.execSQL("DELETE FROM jobs");
+
+        // Сохранение jobs
+        for (String job : Globals.jobs) {
             ContentValues jobValues = new ContentValues();
-            jobValues.put("equipmentId", equipmentId);
-            jobValues.put("jobNameId", jobNameId);
-            jobValues.put("quantity", jobsInfo.get(i));
-            db.insert("jobsInfo", null, jobValues);
+            jobValues.put("name", job);
+            db.insert("jobs", null, jobValues);
         }
+
+        // Сохранение equipment
+        for (Equipment equipment : Globals.items) {
+            ContentValues equipmentValues = new ContentValues();
+            equipmentValues.put("name", equipment.getName());
+            equipmentValues.put("totalQuantity", equipment.getTotalQuantity());
+            equipmentValues.put("jobsList", equipment.getJobsList().toString()); // Прямое преобразование списка в строку
+            db.insert("equipment", null, equipmentValues);
+        }
+
+        db.close();
     }
-    // Метод для чтения оборудования
-    public ArrayList<Equipment> getEquipmentList() {
-        ArrayList<Equipment> equipmentList = new ArrayList<>();
-        Cursor cursor = db.query("Equipment", null, null, null, null, null, null);
 
-        while (cursor.moveToNext()) {
-            int idIndex = cursor.getColumnIndex("id");
-            int nameIndex = cursor.getColumnIndex("name");
-            int totalQuantityIndex = cursor.getColumnIndex("totalQuantity");
+    /**
+     * Функция для восстановления данных из SQLite.
+     * Заполняет Globals.items и Globals.jobs.
+     */
+    public void restoreDataFromDatabase() {
+        SQLiteDatabase db = context.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null);
 
-            if (idIndex >= 0 && nameIndex >= 0 && totalQuantityIndex >= 0) {
-                int id = cursor.getInt(idIndex);
-                String name = cursor.getString(nameIndex);
-                int totalQuantity = cursor.getInt(totalQuantityIndex);
-                Equipment equipment = new Equipment(name, totalQuantity);
+        // Чтение jobs
+        Cursor jobsCursor = db.rawQuery("SELECT name FROM jobs", null);
+        Globals.jobs.clear();
+        while (jobsCursor.moveToNext()) {
+            Globals.jobs.add(jobsCursor.getString(0));
+        }
+        jobsCursor.close();
 
-                Cursor jobCursor = db.query("jobsInfo", new String[]{"jobNameId", "quantity"}, "equipmentId=?", new String[]{String.valueOf(id)}, null, null, null);
-                ArrayList<Integer> jobsInfo = new ArrayList<>();
-                while (jobCursor.moveToNext()) {
-                    int jobNameIdIndex = jobCursor.getColumnIndex("jobNameId");
-                    int quantityIndex = jobCursor.getColumnIndex("quantity");
+        // Чтение equipment
+        Cursor equipmentCursor = db.rawQuery("SELECT name, totalQuantity, jobsList FROM equipment", null);
+        Globals.items.clear();
+        while (equipmentCursor.moveToNext()) {
+            String name = equipmentCursor.getString(0);
+            int totalQuantity = equipmentCursor.getInt(1);
+            String jobsListString = equipmentCursor.getString(2);
 
-                    if (jobNameIdIndex >= 0 && quantityIndex >= 0) {
-                        int quantity = jobCursor.getInt(quantityIndex);
-                        jobsInfo.add(quantity);
-                    } else {
-                        if (jobNameIdIndex < 0) {
-                            Log.d("DatabaseManager", "Column 'jobNameId' not found in jobsInfo table.");
-                        }
-                        if (quantityIndex < 0) {
-                            Log.d("DatabaseManager", "Column 'quantity' not found in jobsInfo table.");
-                        }
+            // Преобразование строки jobsList обратно в ArrayList<Integer>
+            ArrayList<Integer> jobsInfo = new ArrayList<>();
+            for (String job : jobsListString.replace("[", "").replace("]", "").split(",\\s*")) {
+                try {
+                    if (job != null && !job.isEmpty()) {
+                        jobsInfo.add(Integer.parseInt(job.trim()));
                     }
-                }
-                jobCursor.close();
-                equipment.setJobsList(jobsInfo);
-
-                equipmentList.add(equipment);
-            } else {
-                if (idIndex < 0) {
-                    Log.d("DatabaseManager", "Column 'id' not found in Equipment table.");
-                }
-                if (nameIndex < 0) {
-                    Log.d("DatabaseManager", "Column 'name' not found in Equipment table.");
-                }
-                if (totalQuantityIndex < 0) {
-                    Log.d("DatabaseManager", "Column 'totalQuantity' not found in Equipment table.");
+                } catch (NumberFormatException e) {
+                    System.err.println("Некорректное значение при преобразовании: " + job);
                 }
             }
-        }
-        cursor.close();
-        return equipmentList;
-    }
-    // Метод для чтения jobNames
-    public ArrayList<String> getJobs() {
-        ArrayList<String> jobs = new ArrayList<>();
-        Cursor cursor = db.query("jobNames", new String[]{"name"}, null, null, null, null, null);
 
-        while (cursor.moveToNext()) {
-            int nameIndex = cursor.getColumnIndex("name");
-            if (nameIndex >= 0) {
-                String jobName = cursor.getString(nameIndex);
-                jobs.add(jobName);
-            } else {
-                Log.d("DatabaseManager", "Column 'name' not found in jobNames table.");
-            }
+            // Создание объекта Equipment и установка jobsInfo через метод setJobsList
+            Equipment equipment = new Equipment(name, totalQuantity);
+            equipment.setJobsList(jobsInfo); // Установка jobsInfo
+            Globals.items.add(equipment);
         }
-        cursor.close();
-        return jobs;
-    }
-    // Функция сброса базы данных
-    public void resetDatabase() {
-        dbHelper.resetDatabase();
-    }
+        equipmentCursor.close();
 
+        db.close();
+    }
 }
+
+
 
 
 

@@ -11,6 +11,7 @@ public class Equipment {
     public Equipment(String name, int totalQuantity) {
         this.name = name;
         this.totalQuantity = totalQuantity;
+//        inStock = totalQuantity - getInUse();
     }
 
     public String getName() {
@@ -39,7 +40,21 @@ public class Equipment {
         if (quantity <= inThisJob){
             inThisJob -= quantity;
             jobsInfo.set(jobIndex, inThisJob);
-            inStock += quantity;
+            inStock -= quantity;
+        }
+    }
+
+    public void  takeFromStock(int jobIndex, int quantity){
+        ArrayList<Integer> arrayList = new ArrayList();
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+//        List<Integer> list = new
+        int inThisJob = getJobsInfo(jobIndex);
+        if (quantity <= inStock) {
+            inThisJob += quantity;
+            inStock -= quantity;
+            jobsInfo.set(jobIndex, inThisJob);//inThisJob.jobIndex
         }
     }
 
@@ -79,6 +94,7 @@ public class Equipment {
 
     public void updateJobsInfo(int jobIndex, int equipmentQuantity) {
         jobsInfo.set(jobIndex, equipmentQuantity);
+        inStock -= equipmentQuantity;
     }
 
     public void removeJob(int index){

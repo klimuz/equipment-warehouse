@@ -54,16 +54,15 @@
             android:onClick="buttonSavePressed"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonDelete"
+            android:id="@+id/floatingActionButtonQuite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:contentDescription="@string/delete"
+            android:contentDescription="@string/exit"
             android:foregroundGravity="center"
-            android:layout_margin="4dp"
             app:srcCompat="@android:drawable/ic_delete"
-            android:onClick="buttonDeletePressed"/>
+            android:layout_margin="4dp"
+            android:onClick="buttonExitPressed"/>
 
 
     </LinearLayout>

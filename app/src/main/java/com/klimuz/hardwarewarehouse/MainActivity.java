@@ -1,23 +1,21 @@
 package com.klimuz.hardwarewarehouse;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView recyclerViewItems;
-    private EquipmentAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,52 +23,51 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
 
-        if (Globals.items.isEmpty()) {
-            Globals.arrayListsFromDB(this);
-        }
+        if (Globals.items.isEmpty() && doesDatabaseExist(this, "inventory.db")) {
 
-        Log.i("myLog", String.valueOf(Globals.items.size()));
+            DatabaseManager databaseManager = new DatabaseManager(this);
+            databaseManager.restoreDataFromDatabase();
+        }
 
         SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
         if (preferences != null) {
             int scrollPosition = preferences.getInt("scrollPosition", 0);
-
-            adapter = new EquipmentAdapter(Globals.items);
-            recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
-            recyclerViewItems.setAdapter(adapter);
             recyclerViewItems.scrollToPosition(scrollPosition);
-            adapter.setOnEquipmentClickListener(new EquipmentAdapter.OnEquipmentClickListener() {
-                @Override
-                public void onEquipmentClick(int position) {
-
-                }
-
-                @Override
-                public void onLongClick(int position) {
-                    openEditActivity(position);
-                }
-            });
-
-            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    switch (direction) {
-                        case 4:
-                            openIssueActivity(viewHolder.getAdapterPosition());
-                            break;
-                        case 8:
-                            openReturnActivity(viewHolder.getAdapterPosition());
-                            break;
-                    }
-                }
-            });
-            itemTouchHelper.attachToRecyclerView(recyclerViewItems);
         }
+        EquipmentAdapter adapter = new EquipmentAdapter(Globals.items);
+        recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewItems.setAdapter(adapter);
+        adapter.setOnEquipmentClickListener(new EquipmentAdapter.OnEquipmentClickListener() {
+            @Override
+            public void onEquipmentClick(int position) {
+
+            }
+
+            @Override
+            public void onLongClick(int position) {
+                openEditActivity(position);
+            }
+        });
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                switch (direction) {
+                    case 4:
+                        openIssueActivity(viewHolder.getAdapterPosition());
+                        break;
+                    case 8:
+                        openReturnActivity(viewHolder.getAdapterPosition());
+                        break;
+                }
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerViewItems);
     }
 
     @Override
@@ -91,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("RecyclerViewState", MODE_PRIVATE);
         int scrollPosition = preferences.getInt("scrollPosition", 0);
         recyclerViewItems.scrollToPosition(scrollPosition);
-        Globals.arraylistsToDB(this);
-
+        DatabaseManager databaseManager = new DatabaseManager(this);
+        databaseManager.saveDataToDatabase();
     }
 
     private void openEditActivity(int position) {
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonSavePressed(View view) {
-        Globals.arraylistsToDB(this);
+
         if (Globals.jobs.isEmpty()) {
             String nothingToSave = getString(R.string.nothing_to_save);
             Toast.makeText(this, nothingToSave, Toast.LENGTH_LONG).show();
@@ -136,11 +133,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void buttonDeletePressed(View view) {
-        DatabaseManager databaseManager = new DatabaseManager(this);
-        databaseManager.resetDatabase();
-        Globals.items.clear();
-        Globals.jobs.clear();
-        adapter.notifyDataSetChanged();
+    private boolean doesDatabaseExist(Context context, String databaseName) {
+        File dbFile = context.getDatabasePath(databaseName);
+        return dbFile.exists();
+    }
+
+    public void buttonExitPressed(View view) {
+//        uploadDB();
+        finishAffinity();
+        System.exit(0);
     }
 }

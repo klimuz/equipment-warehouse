@@ -47,9 +47,19 @@
     <string name="create_excel_file">Создать xls</string>
     <string name="file_xls_saved">%s.xls сохранён</string>
     <string name="file_xls_not_saved">%s.xls не создан</string>
-    <string name="tool">Вещь</string>
-    <string name="quantity">Штук</string>
     <string name="excel_file">Файл excel</string>
     <string name="please_find_attached_the_excel_file">Посмотрите xls</string>
     <string name="send_email">Отправить</string>
+    <string name="excel_rowname_tool">Вещь</string>
+    <string name="excel_row_name_quantity">Штук</string>
+    <string name="internet_unavailable">Интернет не доступен!</string>
+    <string name="exit">Выход</string>
+    <string name="exit_button_text">Выход</string>
+    <string name="save_to_internet">Сохранить в интернет</string>
+    <string name="offline">Офлайн</string>
+    <string name="retry">Повторить</string>
+    <string name="not_loaded">Не загружено!</string>
+    <string name="problem_with_internet">Кажется, у Вас проблема с интернетом или сервером, повторить или работать офлайн?</string>
+    <string name="uploaded">Загружено!</string>
+    <string name="button_text_retry">Повтори!</string>
 </resources>

@@ -5,9 +5,11 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,12 +22,15 @@ import java.io.File;
 
 import android.Manifest;
 
+import com.klimuz.hardwarewarehouse.google.UploadDB;
+
 
 public class SaveActivity extends AppCompatActivity {
 
     private Spinner spinnerCreateFile;
     private int selectedJobIndex = 0;
     private static final int REQUEST_WRITE_STORAGE = 112;
+    private Button buttonCreateExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,9 @@ public class SaveActivity extends AppCompatActivity {
         }
 
         spinnerCreateFile = findViewById(R.id.spinnerCreateFile);
+        buttonCreateExit = findViewById(R.id.buttonCreateExit);
+        buttonCreateExit.setEnabled(false);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, Globals.jobs);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -49,7 +57,6 @@ public class SaveActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedJobIndex = position;
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -57,11 +64,9 @@ public class SaveActivity extends AppCompatActivity {
     }
 
     public void buttonCreateAndSharePressed(View view) {
-        String column0 = getString(R.string.tool);
-        String column1 = getString(R.string.quantity);
-        File file = ExcelUtils.createExcelFile(this, Globals.items, selectedJobIndex, column0, column1);
-        Uri fileUri = FileProvider.getUriForFile(this, this.getPackageName() + ".fileprovider", file);
+        File file = ExcelUtils.createExcelFile(this, Globals.items, selectedJobIndex);
         if (file != null) {
+            Uri fileUri = FileProvider.getUriForFile(this, this.getPackageName() + ".fileprovider", file);
             String positiveReport = String.format(getString(R.string.file_xls_saved), Globals.jobs.get(selectedJobIndex));
             Toast.makeText(SaveActivity.this, positiveReport, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Intent.ACTION_SEND);
@@ -79,5 +84,24 @@ public class SaveActivity extends AppCompatActivity {
     public void buttonCreateExitPressed(View view) {
         finishAffinity();
         System.exit(0);
+    }
+
+    public void buttonSaveInternetPressed(View view) {
+        if (Globals.isInternetAvailable(this)){
+            UploadDB.uploadDatabase(this);
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Globals.isUploaded) {
+                    buttonCreateExit.setEnabled(true);
+                    String uploaded = getString(R.string.uploaded);
+                    Toast.makeText(SaveActivity.this, uploaded, Toast.LENGTH_LONG).show();
+                } else {
+                    String retry = getString(R.string.button_text_retry);
+                    Toast.makeText(SaveActivity.this, retry, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, 5000);
     }
 }

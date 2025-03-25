@@ -14,8 +14,6 @@ public class EditActivity extends AppCompatActivity {
     private EditText editTextEditTitle;
     private EditText editTextEditQuantity;
     private int position;
-    private String originalName;
-    private int originalTotalQuantity;
     Equipment originalEquipment;
 
     @Override
@@ -30,8 +28,8 @@ public class EditActivity extends AppCompatActivity {
         if (bundle != null){
             position = bundle.getInt("position");
             originalEquipment = Globals.items.get(position);
-            originalName = originalEquipment.getName();
-            originalTotalQuantity = originalEquipment.getTotalQuantity();
+            String originalName = originalEquipment.getName();
+            int originalTotalQuantity = originalEquipment.getTotalQuantity();
             editTextEditTitle.setText(originalName);
             editTextEditQuantity.setText(String.valueOf(originalTotalQuantity));
         }
@@ -51,6 +49,9 @@ public class EditActivity extends AppCompatActivity {
                     originalEquipment.setName(newName);
                     originalEquipment.setTotalQuantity(newTotalQuantityInt);
                     Globals.items.set(position, originalEquipment);
+//                    try (DatabaseManager databaseManager = new DatabaseManager(this)) {
+//                        databaseManager.saveDataToDatabase();
+//                    }
                     goToMain();
                 } else {
                     String fillAllFields = getString(R.string.fill_all_fields);
@@ -69,6 +70,9 @@ public class EditActivity extends AppCompatActivity {
                                     originalEquipment.setName(newName);
                                     originalEquipment.setTotalQuantity(newTotalQuantityInt);
                                     Globals.items.set(position, originalEquipment);
+//                                    try (DatabaseManager databaseManager = new DatabaseManager(EditActivity.this)) {
+//                                        databaseManager.saveDataToDatabase();
+//                                    }
                                     goToMain();
                                 } else {
                                     String fillAllFields = getString(R.string.fill_all_fields);
@@ -105,6 +109,9 @@ public class EditActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Globals.removeEquipment(position,EditActivity.this);
+//                        try (DatabaseManager databaseManager = new DatabaseManager(EditActivity.this)) {
+//                            databaseManager.saveDataToDatabase();
+//                        }
                         goToMain();
                     }
                 })
@@ -117,22 +124,4 @@ public class EditActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void containshowDialog(String dialogText){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(dialogText)
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Globals.removeEquipment(position,EditActivity.this);
-                        goToMain();
-                    }
-                })
-                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 }

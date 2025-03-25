@@ -1,5 +1,19 @@
 [versions]
 agp = "8.9.0"
+googleApiClient = "1.15"
+googleApiClientAndroid = "1.33.2"
+googleApiClientAndroidVersion = "1.34.0"
+googleApiClientVersion = "1.34.2"
+googleApiServicesDrive = "v3-rev136-1.25.0"
+googleApiServicesDriveVersion = "v3-rev305-1.25.0"
+googleGoogleApiServicesDrive = "v3-rev305-1.34.2"
+googleHttpClientGson = "1.45.2"
+googleHttpClientJackson2 = "1.41.5"
+googleOauthClient = "1.36.0"
+googleOauthClientJetty = "1.34.1"
+googlePlayServicesAuth = "20.6.0"
+gson = "2.11.0"
+gsonVersion = "2.10.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -7,11 +21,32 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
+okhttp = "4.10.0"
+playServicesAuth = "21.3.0"
+playServicesAuthVersion = "20.7.0"
 poi = "5.2.2"
 poiOoxml = "5.2.3"
 poiVersion = "5.4.0"
 
 [libraries]
+#google-api-client = { module = "com.google.api-client:google-api-client", version.ref = "googleApiClientAndroidVersion" }
+google-api-client = { module = "com.google.api-client:google-api-client", version.ref = "googleApiClient" }
+google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClientAndroid" }
+#google-api-client-android-v1341 = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClientAndroidVersion" }
+google-api-client-android-v1340 = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClientAndroidVersion" }
+google-api-client-gson = { module = "com.google.api-client:google-api-client-gson", version.ref = "googleApiClientAndroid" }
+google-api-client-jackson2 = { module = "com.google.api-client:google-api-client-jackson2", version.ref = "googleApiClientAndroid" }
+google-api-client-v1342 = { module = "com.google.api-client:google-api-client", version.ref = "googleApiClientVersion" }
+google-api-services-drive = { module = "com.google.apis:google-api-services-drive", version.ref = "googleApiServicesDrive" }
+google-api-services-drive-vv3rev3051250 = { module = "com.google.apis:google-api-services-drive", version.ref = "googleApiServicesDriveVersion" }
+google-api-services-drive-vv3rev3051342 = { module = "com.google.apis:google-api-services-drive", version.ref = "googleGoogleApiServicesDrive" }
+google-http-client-android = { module = "com.google.http-client:google-http-client-android", version.ref = "googleHttpClientJackson2" }
+google-http-client-gson = { module = "com.google.http-client:google-http-client-gson", version.ref = "googleHttpClientGson" }
+google-http-client-jackson2 = { module = "com.google.http-client:google-http-client-jackson2", version.ref = "googleHttpClientJackson2" }
+google-oauth-client = { module = "com.google.oauth-client:google-oauth-client", version.ref = "googleOauthClient" }
+google-oauth-client-jetty = { module = "com.google.oauth-client:google-oauth-client-jetty", version.ref = "googleOauthClientJetty" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+gson-v2101 = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -19,6 +54,9 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-auth-v2060 = { module = "com.google.android.gms:play-services-auth", version.ref = "googlePlayServicesAuth" }
 poi = { group = "org.apache.poi", name = "poi", version.ref = "poi" }
 poi-ooxml = { group = "org.apache.poi", name = "poi-ooxml", version.ref = "poi" }
 poi-ooxml-v523 = { module = "org.apache.poi:poi-ooxml", version.ref = "poiOoxml" }

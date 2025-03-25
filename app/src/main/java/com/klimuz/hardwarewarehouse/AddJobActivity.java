@@ -29,6 +29,9 @@ public class AddJobActivity extends AppCompatActivity {
         String jobName = editTextAddJobName.getText().toString().trim();
         if (!jobName.isEmpty()){
             Globals.createJob(jobName, this);
+//            try (DatabaseManager databaseManager = new DatabaseManager(this)) {
+//                databaseManager.saveDataToDatabase();
+//            }
             Intent intent = new Intent(this, IssueActivity.class);
             intent.putExtra("position", position);
             startActivity(intent);

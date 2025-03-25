@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ReturnActivity extends AppCompatActivity {
 
-    private TextView textViewReturnName;
-    private Spinner spinnerReturn;
     private EditText editTextReturnQuantity;
     private int itemPosition;
     private int selectedJobIndex = 0;
@@ -26,8 +24,8 @@ public class ReturnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_return);
-        textViewReturnName = findViewById(R.id.textViewReturnName);
-        spinnerReturn = findViewById(R.id.spinnerReturn);
+        TextView textViewReturnName = findViewById(R.id.textViewReturnName);
+        Spinner spinnerReturn = findViewById(R.id.spinnerReturn);
         editTextReturnQuantity = findViewById(R.id.editTextReturnQuantity);
 
         Bundle bundle = getIntent().getExtras();

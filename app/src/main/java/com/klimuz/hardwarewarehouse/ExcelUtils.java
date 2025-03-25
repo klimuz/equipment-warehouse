@@ -7,16 +7,19 @@ import android.os.Environment;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ExcelUtils {
-    public static File createExcelFile(Context context, ArrayList<Equipment> items, int selectedJobIndex,
-                                       String column0, String column1) {
+    public static File createExcelFile(Context context, ArrayList<Equipment> items, int jobIndex) {//ArrayList<Equipment> items
+        String column0 = context.getString(R.string.excel_rowname_tool);
+        String column1 = context.getString(R.string.excel_row_name_quantity);
+
         Workbook workbook = new XSSFWorkbook();
-        String jobName = Globals.jobs.get(selectedJobIndex);
+        String jobName = Globals.jobs.get(jobIndex);
         Sheet sheet = workbook.createSheet(jobName);
 
         // Создаем стиль для заголовка (жирные границы)
@@ -52,7 +55,6 @@ public class ExcelUtils {
         cellStyleBottomRight.setBorderRight(BorderStyle.THICK);
 
 
-
         // Заголовки
         Row headerRow = sheet.createRow(0);
         Cell headerCell = headerRow.createCell(0);
@@ -63,15 +65,23 @@ public class ExcelUtils {
         headerCell.setCellStyle(headerStyle);
 
         // Данные
+        int total = 0;
+        for (Equipment equipment : items) {
+            if (equipment.getJobsInfo(jobIndex) > 0) {
+                total++;
+            }
+        }
+
         ArrayList<String> itemNames = new ArrayList<>();
         ArrayList<Integer> itemQuantity = new ArrayList<>();
         for (Equipment equipment : items){
-            int selectedJobValue = equipment.getJobsInfo(selectedJobIndex);
+            int selectedJobValue = equipment.getJobsInfo(jobIndex);
             if (selectedJobValue != 0) {
                 itemNames.add(equipment.getName());
                 itemQuantity.add(selectedJobValue);
             }
         }
+
         for (int i = 0; i < itemNames.size(); i++) {
             Row dataRow = sheet.createRow(i + 1);
             Cell dataCellLeft = dataRow.createCell(0);
@@ -86,6 +96,29 @@ public class ExcelUtils {
             dataCellLeft.setCellValue(itemNames.get(i));
             dataCellRight.setCellValue(itemQuantity.get(i));
         }
+
+//        int rowIndex = 1;
+//        for (Equipment equipment : Globals.items) {
+//            if (equipment.getJobsInfo(jobIndex) > 0) {
+//                Row row = sheet.createRow(rowIndex);
+//                Cell nameCell = row.createCell(0);
+//                nameCell.setCellValue(equipment.getName());
+//                nameCell.setCellStyle(cellStyleLeft);
+//                if (rowIndex == total) {
+//                    nameCell.setCellStyle(cellStyleBottomLeft);
+//
+//                }
+//                Cell quantityCell = row.createCell(1);
+//                quantityCell.setCellValue(equipment.getJobsList().get(jobIndex));
+//                quantityCell.setCellStyle(cellStyleRight);
+//                if (rowIndex == total) {
+//                    quantityCell.setCellStyle(cellStyleBottomRight);
+//                }
+//                rowIndex++;
+//            }
+//        }
+//        sheet.autoSizeColumn(0);
+//        sheet.autoSizeColumn(1);
 
         // Сохранение файла
         String fileName = String.format("%s.xls", jobName);

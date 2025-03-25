@@ -13,16 +13,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class IssueActivity extends AppCompatActivity {
-    private TextView textViewIssueName;
-    private Spinner spinnerIssue;
-    private TextView textViewIssueTotal;
-    private TextView textViewInStoreDigit;
     private EditText editTextIssueQuantity;
     private int position;
     private Equipment originalEquipment;
-    private String originalName;
-    private int originalTotalQuantity;
-    private int originalIssueQuantity;
     private int selectedJobIndex = 0;
 
 
@@ -30,21 +23,21 @@ public class IssueActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issue);
-        textViewIssueName = findViewById(R.id.textViewIssueName);
-        spinnerIssue = findViewById(R.id.spinnerIssue);
-        textViewIssueTotal = findViewById(R.id.textViewIssueTotal);
-        textViewInStoreDigit = findViewById(R.id.textViewInStoreDigit);
+        TextView textViewIssueName = findViewById(R.id.textViewIssueName);
+        Spinner spinnerIssue = findViewById(R.id.spinnerIssue);
+        TextView textViewIssueTotal = findViewById(R.id.textViewIssueTotal);
+        TextView textViewInStoreDigit = findViewById(R.id.textViewInStoreDigit);
         editTextIssueQuantity = findViewById(R.id.editTextIssueQuantity);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             position = bundle.getInt("position");
             originalEquipment = Globals.items.get(position);
-            originalName = originalEquipment.getName();
-            originalTotalQuantity = originalEquipment.getTotalQuantity();
+            String originalName = originalEquipment.getName();
+            int originalTotalQuantity = originalEquipment.getTotalQuantity();
             textViewIssueName.setText(originalName);
             textViewIssueTotal.setText(String.valueOf(originalTotalQuantity));
-            originalIssueQuantity = originalEquipment.getJobsInfo(selectedJobIndex);
+            int originalIssueQuantity = originalEquipment.getJobsInfo(selectedJobIndex);
             editTextIssueQuantity.setText(String.valueOf(originalIssueQuantity));
             textViewInStoreDigit.setText(String.valueOf(Globals.items.get(position).getInStock()));
         }
@@ -79,16 +72,19 @@ public class IssueActivity extends AppCompatActivity {
 
     public void buttonIssueOkPressed(View view) {
         if (!Globals.jobs.isEmpty()){
-            String issueQuantityString = editTextIssueQuantity.getText().toString();
+            String issueQuantityString = editTextIssueQuantity.getText().toString().trim();
             if (!issueQuantityString.isEmpty()) {
                 int issueQuantityInt = Integer.parseInt(issueQuantityString);
+
                 int inStock = Globals.items.get(position).getInStock();
                 if (issueQuantityInt <= inStock){
-                    Globals.items.get(position).updateJobsInfo(selectedJobIndex, issueQuantityInt);
+                    Globals.items.get(position).takeFromStock(selectedJobIndex, issueQuantityInt);
+//                    try (DatabaseManager databaseManager = new DatabaseManager(this)) {
+//                        databaseManager.saveDataToDatabase();
+//                    }
                     goToMain();
                 } else {
-                    String impossible =
-                            String.format(getString(R.string.it_is_impossible_to_take_more_than), inStock);
+                    String impossible = String.format(getString(R.string.it_is_impossible_to_take_more_than), inStock);
                     Toast.makeText(this, impossible, Toast.LENGTH_LONG).show();
                 }
             } else {
