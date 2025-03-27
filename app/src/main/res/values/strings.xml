@@ -64,4 +64,5 @@
     <string name="problem_with_internet">It\'s looks like You have problem with internet or server, retry or work offline?</string>
     <string name="uploaded">Uploaded!</string>
     <string name="button_text_retry">Retry!</string>
+    <string name="remove_job">Remove</string>
 </resources>

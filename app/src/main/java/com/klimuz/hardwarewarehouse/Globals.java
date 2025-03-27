@@ -37,25 +37,10 @@ public class Globals {
         }
     }
 
-    public static void removeJobs() {
-        ArrayList<Integer> indicesToRemove = new ArrayList<>();
-        int counter = 0;
-        if (!jobs.isEmpty()) {
-            for (int j = 0; j < jobs.size(); j++) {
-                for (Equipment equipment : items) {
-                    counter += equipment.getJobsList().get(j);
-                }
-                if (counter == 0) {
-                    indicesToRemove.add(j);
-                }
-                counter = 0;
-            }
-            for (int i = indicesToRemove.size() - 1; i >= 0; i--) {
-                int index = indicesToRemove.get(i);
-                jobs.remove(index);
-                for (Equipment equipment : items)
-                    equipment.removeJob(index);
-            }
+    public static void removeJob(int jobIndex) {
+        jobs.remove(jobIndex);
+        for (Equipment equipment : items){
+            equipment.removeJob(jobIndex);
         }
     }
     public static void removeEquipment(int index, Context context){

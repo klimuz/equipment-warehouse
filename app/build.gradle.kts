@@ -71,18 +71,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
-//    implementation("com.google.code.gson:gson:2.11.0")
-//    implementation(libs.google.api.client)
-//    implementation("com.google.oauth-client:google-oauth-client:1.36.0")
-//    implementation("com.google.http-client:google-http-client-gson:1.39.2")
-//    implementation("com.google.api-client:google-api-client-android:1.31.5")
-//    implementation("com.google.http-client:google-http-client-jackson2:1.39.2") // Для JacksonFactory
-//    implementation("com.google.api-client:google-api-client-android:1.34.1")
-//    implementation("com.google.apis:google-api-services-drive:v3-rev305-1.25.0")
     implementation("com.google.apis:google-api-services-drive:v3-rev136-1.25.0")
     implementation("com.google.auth:google-auth-library-oauth2-http:1.22.0")
-//    implementation("com.google.http-client:google-http-client:1.41.8")
-//    implementation("com.google.http-client:google-http-client-jetty:1.41.8")
+
 
     implementation("com.google.apis:google-api-services-drive:v3-rev305-1.25.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
@@ -97,9 +88,6 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("com.google.api-client:google-api-client:1.34.1")
     implementation("com.google.http-client:google-http-client-android:1.41.5")
-
-
-
 }
 
 

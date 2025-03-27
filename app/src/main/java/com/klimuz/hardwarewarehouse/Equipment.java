@@ -92,12 +92,9 @@ public class Equipment {
         jobsInfo = newJobsInfo;
     }
 
-    public void updateJobsInfo(int jobIndex, int equipmentQuantity) {
-        jobsInfo.set(jobIndex, equipmentQuantity);
-        inStock -= equipmentQuantity;
-    }
-
     public void removeJob(int index){
+        int quantity = jobsInfo.get(index);
+        inStock += quantity;
         jobsInfo.remove(index);
     }
 

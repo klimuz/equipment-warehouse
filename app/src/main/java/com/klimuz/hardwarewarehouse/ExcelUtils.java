@@ -4,8 +4,10 @@ import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
@@ -20,6 +22,7 @@ public class ExcelUtils {
 
         Workbook workbook = new XSSFWorkbook();
         String jobName = Globals.jobs.get(jobIndex);
+//        Log.i("xls", Globals.jobs.get(0));
         Sheet sheet = workbook.createSheet(jobName);
 
         // Создаем стиль для заголовка (жирные границы)
@@ -28,6 +31,8 @@ public class ExcelUtils {
         headerStyle.setBorderBottom(BorderStyle.THICK);
         headerStyle.setBorderLeft(BorderStyle.THICK);
         headerStyle.setBorderRight(BorderStyle.THICK);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
         // Создаем стиль для обычных ячеек (тонкие границы)
         CellStyle cellStyleLeft = workbook.createCellStyle();
@@ -56,7 +61,14 @@ public class ExcelUtils {
 
 
         // Заголовки
-        Row headerRow = sheet.createRow(0);
+        Row rowName = sheet.createRow(0);
+        Cell cellName = rowName.createCell(0);
+        cellName.setCellValue(jobName);
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 1));
+        cellName.setCellStyle(headerStyle);
+        rowName.createCell(1).setCellStyle(headerStyle);
+
+        Row headerRow = sheet.createRow(1);
         Cell headerCell = headerRow.createCell(0);
         headerCell.setCellValue(column0);
         headerCell.setCellStyle(headerStyle);
@@ -76,47 +88,45 @@ public class ExcelUtils {
         ArrayList<Integer> itemQuantity = new ArrayList<>();
         for (Equipment equipment : items){
             int selectedJobValue = equipment.getJobsInfo(jobIndex);
-            if (selectedJobValue != 0) {
+            if (selectedJobValue > 0) {
                 itemNames.add(equipment.getName());
                 itemQuantity.add(selectedJobValue);
             }
         }
 
-        for (int i = 0; i < itemNames.size(); i++) {
-            Row dataRow = sheet.createRow(i + 1);
+        int rowCounter = 2;
+        for (String name : itemNames){
+            Row dataRow = sheet.createRow(rowCounter);
             Cell dataCellLeft = dataRow.createCell(0);
             Cell dataCellRight = dataRow.createCell(1);
-            if (i == itemNames.size() - 1){
+            if (rowCounter == itemNames.size() + 1){
                 dataCellLeft.setCellStyle(cellStyleBottomLeft);
                 dataCellRight.setCellStyle(cellStyleBottomRight);
             } else {
                 dataCellLeft.setCellStyle(cellStyleLeft);
                 dataCellRight.setCellStyle(cellStyleRight);
             }
-            dataCellLeft.setCellValue(itemNames.get(i));
-            dataCellRight.setCellValue(itemQuantity.get(i));
+            dataCellLeft.setCellValue(name);
+            dataCellRight.setCellValue(itemQuantity.get(itemNames.indexOf(name)));
+            rowCounter ++;
         }
 
-//        int rowIndex = 1;
-//        for (Equipment equipment : Globals.items) {
-//            if (equipment.getJobsInfo(jobIndex) > 0) {
-//                Row row = sheet.createRow(rowIndex);
-//                Cell nameCell = row.createCell(0);
-//                nameCell.setCellValue(equipment.getName());
-//                nameCell.setCellStyle(cellStyleLeft);
-//                if (rowIndex == total) {
-//                    nameCell.setCellStyle(cellStyleBottomLeft);
-//
-//                }
-//                Cell quantityCell = row.createCell(1);
-//                quantityCell.setCellValue(equipment.getJobsList().get(jobIndex));
-//                quantityCell.setCellStyle(cellStyleRight);
-//                if (rowIndex == total) {
-//                    quantityCell.setCellStyle(cellStyleBottomRight);
-//                }
-//                rowIndex++;
+//        for (int i = 0; i < itemNames.size() ; i++) {
+//            Row dataRow = sheet.createRow(i + 2);
+//            Cell dataCellLeft = dataRow.createCell(0);
+//            Cell dataCellRight = dataRow.createCell(1);
+//            if (i == itemNames.size() - 1){
+//                dataCellLeft.setCellStyle(cellStyleBottomLeft);
+//                dataCellRight.setCellStyle(cellStyleBottomRight);
+//            } else {
+//                dataCellLeft.setCellStyle(cellStyleLeft);
+//                dataCellRight.setCellStyle(cellStyleRight);
 //            }
+//            dataCellLeft.setCellValue(itemNames.get(i));
+//            dataCellRight.setCellValue(itemQuantity.get(i));
 //        }
+
+
 //        sheet.autoSizeColumn(0);
 //        sheet.autoSizeColumn(1);
 

@@ -54,12 +54,6 @@ public class ReturnActivity extends AppCompatActivity {
         });
     }
 
-    public void buttonReturnAllPressed(View view) {
-        returnQuantity = Globals.items.get(itemPosition).getJobsInfo(selectedJobIndex);
-        Globals.items.get(itemPosition).returnToStock(selectedJobIndex, returnQuantity);
-        goToMain();
-    }
-
     public void buttonCancelReturnPressed(View view) {
         goToMain();
     }
@@ -83,8 +77,8 @@ public class ReturnActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void buttonClearEmptyJobsPressed(View view) {
-        Globals.removeJobs();
+    public void buttonRemoveJobPressed(View view) {
+        Globals.removeJob(selectedJobIndex);
         adapter.notifyDataSetChanged();
     }
 }
